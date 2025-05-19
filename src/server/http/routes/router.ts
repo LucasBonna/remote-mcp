@@ -40,7 +40,7 @@ router.post("/messages", async(req: Request, res: Response) => {
     await transport.send({
         jsonrpc: "2.0",
         method: "notifications/message",
-        params: { 
+        params: {
             level: "info",
             data: mockedResponse,
         }
