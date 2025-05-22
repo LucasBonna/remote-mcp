@@ -1,14 +1,17 @@
 import express from "express";
 import router from "@/server/http/routes/router";
+import authenticate from "./middlewares/authentication";
 
 export async function initHTTPServer() {
-    const app = express();
+  const app = express();
 
-    app.use("/", router);
+  app.use(authenticate);
 
-    const PORT = process.env.PORT || 3000;
+  app.use("/", router);
 
-    app.listen(PORT, () => {
-        console.log(`Server Running on PORT: ${PORT}`);
-    });
-};
+  const PORT = process.env.PORT || 8000;
+
+  app.listen(PORT, () => {
+    console.log(`Server Running on PORT: ${PORT}`);
+  });
+}
