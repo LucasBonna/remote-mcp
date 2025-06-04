@@ -2,8 +2,8 @@ import { initOraclePool } from "@/db/oracle";
 import { initHTTPServer } from "@/server/http/server";
 
 async function main() {
-  const poolInitialized = await initOraclePool();
-  if (!poolInitialized) {
+  const oraclePool = await initOraclePool();
+  if (!oraclePool) {
     console.error("Failed to initialize Oracle connection pool");
     process.exit(1);
   }
