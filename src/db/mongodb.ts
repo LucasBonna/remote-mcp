@@ -1,31 +1,10 @@
-import { MongoClient, Db, Collection } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 import dotenv from "dotenv";
+import { CLIENT_CONFIGS, type ClientConfig } from '@/utils/client-config';
 
 dotenv.config();
 
 const clientsCache = new Map<string, MongoClient>();
-
-interface ClientConfig {
-  clientId: string;
-  clientName: string;
-  uri: string;
-  dbName: string;
-}
-
-const CLIENT_CONFIGS: Record<string, ClientConfig> = {
-  "ford": {
-    clientId: process.env.MONGODB_FORD_CLIENTID!,
-    clientName: "ford",
-    uri: process.env.MONGODB_FORD_URI!,
-    dbName: process.env.MONGODB_FORD_DB!
-  },
-  "wheaton": {
-    clientId: process.env.MONGODB_WHEATON_CLIENTID!,
-    clientName: "wheaton",
-    uri: process.env.MONGODB_WHEATON_URI!,
-    dbName: process.env.MONGODB_WHEATON_DB!
-  },
-};
 
 export async function getOrCreateClientDb(
   clientIdentifier: string,
@@ -82,7 +61,7 @@ export async function getClientDatabase(clientId: string): Promise<Db> {
     throw new Error(`Client configuration not found for clientId: ${clientId}`);
   }
   
-  return await getOrCreateClientDb(config.clientId, config.uri, config.dbName);
+  return await getOrCreateClientDb(config.clientId, config.uri, config.mongoDBName);
 }
 
 export function formatSuccessResponse(data: any, clientId?: string, operation?: string, collection?: string) {

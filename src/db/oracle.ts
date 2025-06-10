@@ -22,12 +22,12 @@ export async function initOraclePool() {
     }
 }
 
-export async function getNFeInvoice(invoiceKey: number) {
+export async function getNFeInvoice(dbName: string, invoiceKey: number) {
     let connection;
     try {
         connection = await oracledb.getConnection();
         const result = await connection.execute(
-            `SELECT * FROM WS_HUB_NFE WHERE CHAVE_ACESSO = :chaveAcesso`,
+            `SELECT * FROM ${dbName}.WS_HUB_NFE WHERE CHAVE_ACESSO = :chaveAcesso`,
             { chaveAcesso: invoiceKey },
             { outFormat: oracledb.OUT_FORMAT_OBJECT },
         );
@@ -75,12 +75,13 @@ export async function getNFeInvoice(invoiceKey: number) {
         }
     }
 }
-export async function getProcessInfo(processId: number) {
+
+export async function getProcessInfo(dbName: string, processId: number) {
     let connection;
     try {
         connection = await oracledb.getConnection();
         const result = await connection.execute(
-            `SELECT * FROM WS_PROCESS_001 WHERE PROCESSID = :id`,
+            `SELECT * FROM ${dbName}.WS_PROCESS_001 WHERE PROCESSID = :id`,
             { id: processId },
             { outFormat: oracledb.OUT_FORMAT_OBJECT },
         );
