@@ -9,7 +9,7 @@ export default function fordTools(server: McpServer) {
                 contents: [{
                     uri: uri.href,
                     text: `
-                        Descrição do Processo de Integração de Notas Fiscais
+                        Descrição do Fluxo de Monitoramento de Notas Fiscais
 
                         1. Entrada no Hub
                         •⁠ Todas as notas fiscais monitoradas são inicialmente inseridas no Hub (MongoDB).
